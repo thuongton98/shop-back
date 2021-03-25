@@ -1,0 +1,107 @@
+const router = require('express').Router();
+const nodemailer = require("nodemailer");
+let User = require('../model/sign-model');
+
+
+router.route('/').get((req,res)=>{
+    User.find()
+       .then(users=>res.json(users))
+       .catch(err=>res.status(400).json('Error: '+err))
+})
+
+
+router.route('/add').post((req,res)=>{
+    const email=req.body.email;
+    const username=req.body.username;
+    const fname=req.body.fname;
+    const lname=req.body.lname;
+    const bird=req.body.bird;
+    const diachi=req.body.diachi;
+    const pass=req.body.pass;
+    const token=req.body.token;
+
+    const newUser = new User({
+        email,
+        username,
+        fname,
+        lname,
+        bird,
+        diachi,
+        pass,
+        token
+    })
+  
+    newUser.save()
+    .then(ok=>{
+        fs.readFile('index.html', {encoding: 'utf-8'}, function (err, html) {
+            if (err) {
+              console.log(err);
+            } else {
+              var mailOptions = {
+                from: 'youremail@gmail.com',
+                to: 'myfriend@yahoo.com',
+                subject: 'Sending Email using Node.js',
+                html: html
+              };
+              transporter.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }
+              });
+            }
+          });
+        var transporter =  nodemailer.createTransport({ // config mail server
+            service: 'Gmail',
+            auth: {
+                user: 'thuongton98@gmail.com',
+                pass: '30031998thuong'
+            },
+           
+        });
+        //link active lam lai
+        const link='http://localhost:5000/'+ok.token
+       
+        var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+            from: 'Thuong',
+            to: ok.email,
+            subject: 'This is Thuong!!!!',
+            
+            html:`Click To Active`.link(link),
+        
+        }
+        transporter.sendMail(mainOptions, function(err, info){
+            if (err) {
+                console.log(err);
+               
+            } else {
+                console.log('Message sent: ' +  info.response);
+               
+            }
+        });
+       
+       //settime doi sau khoan thoi gian
+       setTimeout(()=>{
+        var crypto = require("crypto");
+        ok.token = crypto.randomBytes(20).toString('hex');
+        ok.save()
+       
+       }, 360000);
+    }
+    
+    )
+    .then((ok)=>res.json('ok'))
+       
+    .catch(err => res.status(400).json('Error: '+err));
+
+})
+
+router.route('/:id').get((req,res)=>{
+    User.find({token:req.params.id})
+    .then(user=>res.json(user))
+    .catch(err => res.status(400).json('Error: '+err));
+})
+
+
+module.exports = router;

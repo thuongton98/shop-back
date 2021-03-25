@@ -1,0 +1,17 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const signSchema = new Schema({
+    email:{
+        type:String,
+        require:true,
+    },
+    fname:{
+        type:String,
+        require:true,
+    },
+    email:{
+        type:String,
+        require:true,
+    }
+})
