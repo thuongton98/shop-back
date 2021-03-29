@@ -23,7 +23,7 @@ router.route('/add').post((req,res)=>{
     const token=crypto.randomBytes(200).toString('hex');
     const active='no';
     //2 cai nay sua lai thanh req.body con ben font-end moi bo value
-    const img='http://localhost:5001/images/default.jpg';
+    const img='https://thuongton.net/api/user/images/default.jpg';
     const nguoidung='user'
 
     const newUser = new User({
@@ -53,7 +53,7 @@ router.route('/add').post((req,res)=>{
            
         });
         //link active lam lai
-        const link='http://localhost:5600/active/'+ok.token
+        const link='http://thuongton.net/active/'+ok.token
         const t=`Click To Active`.link(link)
        
         var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
@@ -187,7 +187,7 @@ router.route('/update/email/:id').post((req,res)=>{
     const n=k.join('')
 
         //link active lam lai
-        const link='http://localhost:5600/changeemail/'+n+'-'+user[0].token
+        const link='http://thuongton.net/changeemail/'+n+'-'+user[0].token
         const t=`Click To Reset`.link(link)
        
         var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
@@ -253,11 +253,13 @@ router.route('/update/pass/:id').post((req,res)=>{
     User.find({token:req.params.id})
     .then(user=>{
         var transporter =  nodemailer.createTransport({ // config mail server
-            service: 'Gmail',
+            service: 'gmail',
             auth: {
                 user: 'thuongton98@gmail.com',
                 pass: '30031998thuong'
             },
+            
+            host: "smtp.gmail.com",
            
         });
       
@@ -266,7 +268,7 @@ user[0].save()
 
 
         //link active lam lai
-        const link='http://localhost:5600/changepass/'+user[0].token
+        const link='http://thuongton.net/changepass/'+user[0].token
         const t=`Click To Reset`.link(link)
        
         var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
@@ -370,7 +372,7 @@ router.route('/reset/:id').post((req,res)=>{
       
 
         //link active lam lai
-        const link='http://localhost:5600/changeforgetpass/'+n+'-'+user[0].token
+        const link='http://thuongton.net/changeforgetpass/'+n+'-'+user[0].token
         const t=`Click To Reset`.link(link)
        
         var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
