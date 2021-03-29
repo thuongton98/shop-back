@@ -258,7 +258,8 @@ router.route('/update/pass/:id').post((req,res)=>{
                 user: 'thuongton98@gmail.com',
                 pass: '30031998thuong'
             },
-            
+            port:465,
+            sercure:true,
             host: "smtp.gmail.com",
            
         });
