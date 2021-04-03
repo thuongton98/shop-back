@@ -3,6 +3,8 @@ const nodemailer = require("nodemailer");
 const { userInfo } = require('os');
 let User = require('../model/sign-model');
 var crypto = require("crypto");
+
+
 //show all user
 router.route('/').get((req,res)=>{
     User.find()
@@ -252,17 +254,7 @@ router.route('/update/pass/:id').post((req,res)=>{
    
     User.find({token:req.params.id})
     .then(user=>{
-        var transporter =  nodemailer.createTransport({ // config mail server
-            service: 'gmail',
-            auth: {
-                user: 'thuongton98@gmail.com',
-                pass: '30031998thuong'
-            },
-            port:465,
-            sercure:true,
-            host: "smtp.gmail.com",
-           
-        });
+       
       
        user[0].newpass=req.body.newpass
 user[0].save()
@@ -272,24 +264,25 @@ user[0].save()
         const link='http://thuongton.net/changepass/'+user[0].token
         const t=`Click To Reset`.link(link)
        
-        var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
-            from: 'Thuong',
-            to: user[0].email,
-            subject: 'This is Thuong!!!!',
-            
-            html:'<b>This is Change pass </b> <br> <p>reset link on 1 hour</p> <br>'+t
-        
-        }
-        transporter.sendMail(mainOptions, function(err, info){
-            if (err) {
-                console.log(err);
-               
-            } else {
-                console.log('Message sent: ' +  info.response);
-               
-            }
-        });
-      
+
+        const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey('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')
+const msg = {
+  to: 'thuongton98@gmail.com', // Change to your recipient
+  from: 'thuongton98@outlook.com', // Change to your verified sender
+  subject: 'Hello!!Thuong day',
+ 
+  template_id:"d-0c0a613769644c8f83ae5cce15974b91"
+}
+sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+
        //settime doi sau khoan thoi gian
        setTimeout(()=>{
         var crypto = require("crypto");
@@ -376,14 +369,7 @@ router.route('/reset/:id').post((req,res)=>{
         const link='http://thuongton.net/changeforgetpass/'+n+'-'+user[0].token
         const t=`Click To Reset`.link(link)
        
-        var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
-            from: 'Thuong',
-            to: req.params.id,
-            subject: 'This is Thuong!!!!',
-            
-            html:'<b>This is Change Pass </b> <br> <p>reset link on 1 hour</p> <br>'+t
-        
-        }
+       
         transporter.sendMail(mainOptions, function(err, info){
             if (err) {
                 console.log(err);
