@@ -358,7 +358,27 @@ router.route('/update/pass/check/:id').post((req,res)=>{
     .catch(err => res.status(400).json('Error: '+ err));
 })
 
+//active 
+router.route('/active/:id').post((req,res)=>{
+    
+  User.find({token:req.params.id})
+  .then(user=>{
+      user[0].active = 'yes';
+    
+      user[0].token = req.body.token;
+      user[0].save()
+ .then(()=>res.json('account acttiive!'))
+ .catch(err => res.status(400).json('Error: '+ err));
+    
+    
+  
 
+   
+ 
+ 
+  })
+  .catch(err => res.status(400).json('Error: '+ err));
+})
 
 
 //update img
