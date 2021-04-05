@@ -10,7 +10,7 @@ const app = express();
 const port = process.env.PORT || 5001;
 
 var bodyParser = require('body-parser')
-
+app.set('view engine', 'ejs');
 app.use(cors());
 app.use(bodyParser.json());
 
