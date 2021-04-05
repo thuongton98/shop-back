@@ -370,7 +370,14 @@ router.route('/active/:id').post((req,res)=>{
  .then(()=>res.json('account acttiive!'))
  .catch(err => res.status(400).json('Error: '+ err));
     
-    
+      //settime doi sau khoan thoi gian
+      setTimeout(()=>{
+        var crypto = require("crypto");
+        user[0].token = crypto.randomBytes(200).toString('hex');
+  
+       user[0].save();
+       }, 3600000);
+   
   
 
    
