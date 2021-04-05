@@ -363,7 +363,7 @@ router.route('/active/:id').post((req,res)=>{
     
   User.find({token:req.params.id})
   .then(user=>{
-      user[0].active = 'yes';
+      user[0].active = req.body.active;
     
       user[0].token = req.body.token;
       user[0].save()
