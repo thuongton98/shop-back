@@ -26,7 +26,7 @@ router.route('/add').post((req,res)=>{
     const token=crypto.randomBytes(200).toString('hex');
     const active='no';
     //2 cai nay sua lai thanh req.body con ben font-end moi bo value
-    const img='https://thuongton.net/api/user/sign/images/default.jpg';
+    const img='https://thuongton.net/api/user/images/default.jpg';
     const nguoidung=req.body.nguoidung;
 
     const newUser = new User({
@@ -46,12 +46,18 @@ router.route('/add').post((req,res)=>{
   
     newUser.save()
     .then(ok=>{
-  
+      var transporter =  nodemailer.createTransport({ // config mail server
+        service: 'Gmail',
+        auth: {
+            user: 'thuongton981@gmail.com',
+            pass: '30031998thuong'
+        },
+       
+    });
        
         //link active lam lai
         const link='https://thuongton.net/active/'+ok.token
-        const sgMail = require('@sendgrid/mail')
-        sgMail.setApiKey('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')
+       
         fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, html) {
         
             if (err) {
@@ -66,23 +72,23 @@ router.route('/add').post((req,res)=>{
                  }
              }
              n = n.replace("https://confirm/", link);
-                const msg = {
-                    to: ok.email, // Change to your recipient
-                    from: {
-                        email: 'thuongton98@outlook.com', // Change to your verified sender
-                    name:'thuong@contact'},
-                    subject: 'Hello!!Thuong day',
-                   
-                    html: n
-                  }
-                  sgMail
-                    .send(msg)
-                    .then(() => {
-                      console.log('Email sent')
-                    })
-                    .catch((error) => {
-                      console.error(error)
-                    })
+             var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+              from: 'Thuong',
+              to: ok.email,
+              subject: 'This is Thuong!!!!',
+              
+              html:n,
+          
+          }
+          transporter.sendMail(mainOptions, function(err, info){
+              if (err) {
+                  console.log(err);
+                 
+              } else {
+                  console.log('Message sent: ' +  info.response);
+                 
+              }
+          });
             }
           });
        
