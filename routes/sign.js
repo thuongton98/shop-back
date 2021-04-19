@@ -49,7 +49,7 @@ router.route('/add').post((req,res)=>{
       var transporter =  nodemailer.createTransport({ // config mail server
         service: 'Gmail',
         auth: {
-            user: 'thuongton981@gmail.com',
+            user: 'thuongton98@gmail.com',
             pass: '30031998thuong'
         },
        
