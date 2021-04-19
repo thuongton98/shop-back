@@ -228,7 +228,7 @@ fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, 
      n = n.replace("https://confirm/", link);
      var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
       from: 'Thuong',
-      to: req.body.email,
+      to: e,
       subject: 'This is Thuong!!!!',
       
       html:n,
@@ -298,7 +298,7 @@ router.route('/update/pass/:id').post((req,res)=>{
         },
        
     });
-      
+      var e = req.body.email
        user[0].newpass=req.body.newpass
 user[0].save()
 
@@ -325,7 +325,7 @@ fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, 
      n = n.replace("https://confirm/", link);
      var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
       from: 'Thuong',
-      to: req.body.email,
+      to: e,
       subject: 'This is Thuong!!!!',
       
       html:n,
@@ -461,7 +461,7 @@ router.route('/reset/:id').post((req,res)=>{
             if (err) {
               console.log(err);
             } else {
-                
+               
                 var n = html.replace("https://viewstripo.email/", "http://thuongton.net/");
                 
              for(var i=0;i<10;i++){
@@ -472,7 +472,7 @@ router.route('/reset/:id').post((req,res)=>{
              n = n.replace("https://confirm/", link);
              var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
               from: 'Thuong',
-              to: req.param.id,
+              to: e,
               subject: 'This is Thuong!!!!',
               
               html:n,
