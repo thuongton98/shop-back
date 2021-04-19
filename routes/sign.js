@@ -199,12 +199,19 @@ router.route('/update/email/:id').post((req,res)=>{
         }
     const n=k.join('')
 
+    var transporter =  nodemailer.createTransport({ // config mail server
+      service: 'Gmail',
+      auth: {
+          user: 'thuongton98@gmail.com',
+          pass: '30031998thuong'
+      },
+     
+  });
         //link active lam lai
         const link='https://thuongton.net/changeemail/'+n+'-'+user[0].token
         
        
-        const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey('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')
+       
 fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, html) {
 
     if (err) {
@@ -219,23 +226,23 @@ fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, 
          }
      }
      n = n.replace("https://confirm/", link);
-        const msg = {
-            to: req.body.email, // Change to your recipient
-            from: {
-                email: 'thuongton98@outlook.com', // Change to your verified sender
-            name:'thuong@contact'},
-            subject: 'Hello!!Thuong day',
-           
-            html: n
-          }
-          sgMail
-            .send(msg)
-            .then(() => {
-              console.log('Email sent')
-            })
-            .catch((error) => {
-              console.error(error)
-            })
+     var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+      from: 'Thuong',
+      to: ok.email,
+      subject: 'This is Thuong!!!!',
+      
+      html:n,
+  
+  }
+  transporter.sendMail(mainOptions, function(err, info){
+      if (err) {
+          console.log(err);
+         
+      } else {
+          console.log('Message sent: ' +  info.response);
+         
+      }
+  });
     }
   });
       
@@ -288,14 +295,20 @@ router.route('/update/pass/:id').post((req,res)=>{
        user[0].newpass=req.body.newpass
 user[0].save()
 
-
+var transporter =  nodemailer.createTransport({ // config mail server
+  service: 'Gmail',
+  auth: {
+      user: 'thuongton98@gmail.com',
+      pass: '30031998thuong'
+  },
+ 
+});
         //link active lam lai
         const link='https://thuongton.net/changepass/'+user[0].token
         
     
 
-        const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey('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')
+     
 fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, html) {
 
     if (err) {
@@ -310,23 +323,23 @@ fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, 
          }
      }
      n = n.replace("https://confirm/", link);
-        const msg = {
-            to: user[0].email, // Change to your recipient
-            from: {
-                email: 'thuongton98@outlook.com', // Change to your verified sender
-            name:'thuong@contact'},
-            subject: 'Hello!!Thuong day',
-           
-            html: n
-          }
-          sgMail
-            .send(msg)
-            .then(() => {
-              console.log('Email sent')
-            })
-            .catch((error) => {
-              console.error(error)
-            })
+     var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+      from: 'Thuong',
+      to: ok.email,
+      subject: 'This is Thuong!!!!',
+      
+      html:n,
+  
+  }
+  transporter.sendMail(mainOptions, function(err, info){
+      if (err) {
+          console.log(err);
+         
+      } else {
+          console.log('Message sent: ' +  info.response);
+         
+      }
+  });
     }
   });
 
@@ -432,11 +445,17 @@ router.route('/reset/:id').post((req,res)=>{
         }
     const n=k.join('')
       
-
+    var transporter =  nodemailer.createTransport({ // config mail server
+      service: 'Gmail',
+      auth: {
+          user: 'thuongton98@gmail.com',
+          pass: '30031998thuong'
+      },
+     
+  });
         //link active lam lai
         const link='https://thuongton.net/changeforgetpass/'+n+'-'+user[0].token
-        const sgMail = require('@sendgrid/mail')
-        sgMail.setApiKey('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')
+      
         fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, html) {
         
             if (err) {
@@ -451,23 +470,23 @@ router.route('/reset/:id').post((req,res)=>{
                  }
              }
              n = n.replace("https://confirm/", link);
-                const msg = {
-                    to:req.params.id, // Change to your recipient
-                    from: {
-                        email: 'thuongton98@outlook.com', // Change to your verified sender
-                    name:'thuong@contact'},
-                    subject: 'Hello!!Thuong day',
-                   
-                    html: n
-                  }
-                  sgMail
-                    .send(msg)
-                    .then(() => {
-                      console.log('Email sent')
-                    })
-                    .catch((error) => {
-                      console.error(error)
-                    })
+             var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+              from: 'Thuong',
+              to: ok.email,
+              subject: 'This is Thuong!!!!',
+              
+              html:n,
+          
+          }
+          transporter.sendMail(mainOptions, function(err, info){
+              if (err) {
+                  console.log(err);
+                 
+              } else {
+                  console.log('Message sent: ' +  info.response);
+                 
+              }
+          });
             }
           });
        
