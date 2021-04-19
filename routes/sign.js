@@ -228,7 +228,7 @@ fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, 
      n = n.replace("https://confirm/", link);
      var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
       from: 'Thuong',
-      to: ok.email,
+      to: req.body.email,
       subject: 'This is Thuong!!!!',
       
       html:n,
@@ -290,19 +290,19 @@ router.route('/update/pass/:id').post((req,res)=>{
    
     User.find({token:req.params.id})
     .then(user=>{
+      var transporter =  nodemailer.createTransport({ // config mail server
+        service: 'Gmail',
+        auth: {
+            user: 'thuongton98@gmail.com',
+            pass: '30031998thuong'
+        },
        
+    });
       
        user[0].newpass=req.body.newpass
 user[0].save()
 
-var transporter =  nodemailer.createTransport({ // config mail server
-  service: 'Gmail',
-  auth: {
-      user: 'thuongton98@gmail.com',
-      pass: '30031998thuong'
-  },
- 
-});
+
         //link active lam lai
         const link='https://thuongton.net/changepass/'+user[0].token
         
@@ -325,7 +325,7 @@ fs.readFile('./views/emailchangepass.html', {encoding: 'utf-8'}, function (err, 
      n = n.replace("https://confirm/", link);
      var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
       from: 'Thuong',
-      to: ok.email,
+      to: req.body.email,
       subject: 'This is Thuong!!!!',
       
       html:n,
@@ -472,7 +472,7 @@ router.route('/reset/:id').post((req,res)=>{
              n = n.replace("https://confirm/", link);
              var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
               from: 'Thuong',
-              to: ok.email,
+              to: req.param.id,
               subject: 'This is Thuong!!!!',
               
               html:n,
