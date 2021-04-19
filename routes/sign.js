@@ -26,8 +26,8 @@ router.route('/add').post((req,res)=>{
     const token=crypto.randomBytes(200).toString('hex');
     const active='no';
     //2 cai nay sua lai thanh req.body con ben font-end moi bo value
-    const img='https://thuongton.net/api/user/images/default.jpg';
-    const nguoidung='user'
+    const img='https://thuongton.net/api/user/sign/images/default.jpg';
+    const nguoidung=req.body.nguoidung;
 
     const newUser = new User({
         email,

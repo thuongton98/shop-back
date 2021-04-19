@@ -1,4 +1,5 @@
-dbPassword = 'mongodb+srv://thuongzoo123:thuong123@cluster0.o1ybm.mongodb.net/myUser?retryWrites=true&w=majority';
+dbPassword = 'mongodb://localhost:27017/shop';
+
 module.exports = {
     mongoURI: dbPassword
 };

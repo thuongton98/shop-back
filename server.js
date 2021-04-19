@@ -31,9 +31,18 @@ mongoose
   .catch(err=>console.log(err));
 
 const sign = require('./routes/sign')
-app.use('/',sign)
+app.use('/sign',sign)
 const upload = require('./routes/upload')
 app.use('/images',upload)
+const shopRoute = require('./routes/shop')
+app.use('/shop',shopRoute)
+const sanphamRoute = require('./routes/sanpham')
+app.use('/sanpham',sanphamRoute)
+const cartRoute = require('./routes/cart')
+app.use('/cart',cartRoute)
+const Uploadimgsanpham = require('./routes/imgsanpham')
+app.use('/imgsanpham',Uploadimgsanpham)
+
 
 app.listen(port,()=>{
     console.log(`server connect on port: ${port}`)
