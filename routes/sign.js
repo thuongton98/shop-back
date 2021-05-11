@@ -23,10 +23,26 @@ router.route('/add').post((req,res)=>{
     const diachi=req.body.diachi;
     const pass=req.body.pass;
     const type=req.body.type;
-    const token=crypto.randomBytes(200).toString('hex');
+    var token;
+    if(req.body.token===undefined){
+        token=crypto.randomBytes(200).toString('hex');
+    }else{
+        token=req.body.token
+    }
+    var social;
+    if(req.body.social===undefined){
+        social='no'
+    }else{
+        social=req.body.social
+    }
     const active='no';
     //2 cai nay sua lai thanh req.body con ben font-end moi bo value
-    const img='https://thuongton.net/api/user/images/default.jpg';
+    var img;
+    if(req.body.img===undefined){
+        img='https://thuongton.net/api/user/images/default.jpg';
+    }else{
+        img=req.body.img
+    }
     const nguoidung=req.body.nguoidung;
 
     const newUser = new User({
@@ -41,7 +57,8 @@ router.route('/add').post((req,res)=>{
         active,
         img,
         type,
-        nguoidung
+        nguoidung,
+        social,
     })
   
     newUser.save()
@@ -299,6 +316,7 @@ router.route('/update/pass/:id').post((req,res)=>{
        
     });
       var e = req.body.email
+      console.log(e)
        user[0].newpass=req.body.newpass
 user[0].save()
 

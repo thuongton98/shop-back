@@ -7,6 +7,7 @@ const cartSchema = new Schema({
         type:String,
         required:true
     },
+    img:[],
     tenshop:{
       type:String,
       required:true  
@@ -23,7 +24,27 @@ const cartSchema = new Schema({
         type:String,
         required:true
     },
-    loaishop:{
+    check:{
+        type:String,
+        required:true
+    },
+    soluong:{
+        type:String,
+        required:true
+    },
+    idsanpham:{
+        type:String,
+        required:true
+    },
+    mausac:{
+        type:String,
+        required:true
+    },
+    kichco:{
+        type:String,
+        required:true
+    },
+    magiamgia:{
         type:String,
         required:true
     }

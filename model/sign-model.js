@@ -53,6 +53,10 @@ const signSchema = new Schema({
    nguoidung:{
         type:String,
         required:true,
+    },
+    social:{
+        type:String,
+        required:true,
     }
     
 },{timestamps: true})
