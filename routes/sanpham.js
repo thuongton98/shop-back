@@ -47,21 +47,21 @@ router.route('/:id').get((req,res)=>{
 })
 //update san pham
 router.route('/update/:id').post((req,res)=>{
-    Sanpham.find({userid:req.params.id})
+    Sanpham.findById(req.params.id)
         .then(sanpham=>{
-           
-            sanpham[0].tensanpham = req.body.edittensanpham;
-            sanpham[0].loaisanpham= req.body.editloaisanpham;
-            sanpham[0].giasanpham = req.body.editgiasanpham;
-            sanpham[0].magiamgia = req.body.editmagiamgia;
-            sanpham[0].mausac=req.body.editmausac;
-            sanpham[0].kichco=req.body.editkichco;
-            sanpham[0].soluong=req.body.editsoluong;
+           if(sanpham.userid===req.body.userid)
+            {sanpham.tensanpham = req.body.edittensanpham;
+            sanpham.loaisanpham= req.body.editloaisanpham;
+            sanpham.giasanpham = req.body.editgiasanpham;
+            sanpham.magiamgia = req.body.editmagiamgia;
+            sanpham.mausac=req.body.editmausac;
+            sanpham.kichco=req.body.editkichco;
+            sanpham.soluong=req.body.editsoluong;
        
-            sanpham[0].save()
+            sanpham.save()
             
        .then(()=>res.json('sanpham update!'))
-       .catch(err => res.status(400).json('Error: '+ err));
+       .catch(err => res.status(400).json('Error: '+ err));}
         })
         .catch(err => res.status(400).json('Error: '+ err));
 })
